@@ -77,7 +77,10 @@ exports.login = async (req, res) => {
     let token = tokenGenerator({ email, userId: user._id ,role:'admin'});
     return res
       .status(200)
-      .json({ message: "User logged in successfully", token });
+      .json({ message: "User logged in successfully", token,
+        email:user.email ,name:user.firstName+" "+user.lastName,
+        role:'admin'
+       });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });
@@ -114,7 +117,7 @@ exports.authenticate = async (req, res) => {
     let token = tokenGenerator({ email, userId: user._id });
     return res
       .status(200)
-      .json({ message: "User authenticated successfully", token });
+      .json({ message: "User authenticated successfully", token,email:user.email ,name:user.firstName+" "+user.lastName });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: error.message });

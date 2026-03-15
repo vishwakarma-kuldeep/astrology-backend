@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var cors = require('cors');
-var logger = require("morgan");
+var morgan = require("morgan");
 var multer = require("multer");
 
 // Db Connection
@@ -40,17 +40,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(logger("dev"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer().any());
 app.use(cookieParser());
 app.use(cors());
 
-// Request Logger
-// if (app.get("env") === "development") {
-  app.use(logger("dev"));
-// }
+// Morgan logs for both development and production
+app.use(morgan("dev"));
 
 
 // Place your routes here

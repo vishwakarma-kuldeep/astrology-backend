@@ -45,7 +45,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer().any());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin:"*",
+    methods:["GET","POST","PUT","DELETE"]
+}));
 
 // Morgan logs for both development and production
 app.use(morgan("dev"));

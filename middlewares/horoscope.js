@@ -19,12 +19,13 @@ const HoroscopeCategory = require("../models/horoscopeCategory");
 
 exports.checkCategoryId = async (req, res, next) => {
   try {
-   
-    let id 
-    if(req.body.horoscopeCategory !== req.params.id){
-      id = req.body.horoscopeCategory
+    let id;
+    if (!req.body.horoscopeCategory) {
+      id = req.params.id;
+    } else {
+      id = req.body.horoscopeCategory;
     }
-    console.log(req.params.id)
+    // console.log(id)
     const check = await HoroscopeCategory.findOne({ _id: id });
     if (!check) {
       return res
@@ -40,14 +41,14 @@ exports.checkCategoryId = async (req, res, next) => {
 
 exports.checkValidHoroscope = async (req, res, next) => {
   try {
-    let id ;
-    if(req.body.horoscope){
-        id = req.body.horoscope
-    }else{
-        id = req.params.id
+    let id;
+    if (req.body.horoscope) {
+      id = req.body.horoscope;
+    } else {
+      id = req.params.id;
     }
     const check = await Horoscope.findOne({ _id: id });
-    console.log(check)
+    console.log(check);
     if (!check) {
       return res.status(400).json({ message: "Horoscope does not exist" });
     }

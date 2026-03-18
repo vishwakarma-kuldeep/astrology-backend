@@ -101,7 +101,17 @@ exports.createHoroscope = async (req, res) => {
 exports.getHoroscope = async (req, res) => {
   try {
     const date = req.query.date;
-    const horoscope = await Horoscope.find({ date: date, isDeleted: false });
+    let horoscope;
+    if (date) {
+      await Horoscope.find({
+        date: date,
+        isDeleted: false,
+      });
+    } else {
+      horoscope = await Horoscope.find({
+        isDeleted: false,
+      });
+    }
     return res.status(200).json({ horoscope });
   } catch (error) {
     console.error(error);

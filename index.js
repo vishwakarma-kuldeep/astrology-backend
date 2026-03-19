@@ -131,6 +131,7 @@ dbConnection();
 
 const app = express();
 
+app.set("trust proxy", 1);
 // 🔐 Security
 app.use(helmet());
 

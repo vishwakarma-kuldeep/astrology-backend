@@ -4,71 +4,67 @@ const adminMiddleware = require("../middlewares/adminmiddleware");
 const product = require("../middlewares/product");
 const router = require("express").Router();
 
-router.post(
-  "/add",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.addProduct
-);
+router.post("/add", [adminMiddleware.checkAdmin], productController.addProduct);
 router.post(
   "/update/:id",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.updateProduct
+  [adminMiddleware.checkAdmin],
+  productController.updateProduct,
 );
 
 router.post(
   "/delete/:id",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.deleteProduct
+  [adminMiddleware.checkAdmin],
+  productController.deleteProduct,
 );
 router.get(
   "/get-deleted-products",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.getAllDeletedProducts
+  [adminMiddleware.checkAdmin],
+  productController.getAllDeletedProducts,
 );
 
 router.post(
   "/add-image/:id",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.addImage
+  [adminMiddleware.checkAdmin],
+  productController.addImage,
 );
 
 router.post(
   "/remove-image/:id",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.removeImage
+  [adminMiddleware.checkAdmin],
+  productController.removeImage,
 );
 
 router.post(
   "/add-discount/:id",
-  [
-    middleware.authenticateToken,
-    adminMiddleware.checkAdmin,
-    product.checkProduct,
-  ],
-  productController.addDiscount
+  [adminMiddleware.checkAdmin, product.checkProduct],
+  productController.addDiscount,
 );
 router.get(
   "/get-all",
   [middleware.authenticateToken],
-  productController.getAllProducts
+  productController.getAllProducts,
 );
 router.get(
   "/get/:id",
-  [middleware.authenticateToken, product.checkProduct],
-  productController.getProductById
+  [product.checkProduct],
+  productController.getProductById,
 );
-router.post('/retrieve-products',[middleware.authenticateToken, adminMiddleware.checkAdmin,],productController.retrieveProducts)
+router.post(
+  "/retrieve-products",
+  [adminMiddleware.checkAdmin],
+  productController.retrieveProducts,
+);
 
 // Get Products by category
 router.get(
   "/get-by-category/:id",
-  [middleware.authenticateToken, product.checkCategory],
-  productController.getProductsByCategory
+  [product.checkCategory],
+  productController.getProductsByCategory,
 );
 // Get Products by subcategory
 // router.get(
 //   '/get-by-subcategory/:id',
-//   [middleware.authenticateToken, product.checkSubCategory],
+//   [   product.checkSubCategory],
 //   productController.getProductsBySubCategory,
 // )
 
@@ -76,56 +72,48 @@ router.get(
 router.get(
   "/get-new-arrivals",
   [middleware.authenticateToken],
-  productController.getNewArrivals
+  productController.getNewArrivals,
 );
 // get total products
 router.get(
   "/get-total-products",
-  [middleware.authenticateToken, adminMiddleware.checkAdmin],
-  productController.getTotalProducts
+  [adminMiddleware.checkAdmin],
+  productController.getTotalProducts,
 );
 
 // Carousel Products
 router.get(
   "/get-carousel-products",
   [middleware.authenticateToken],
-  productController.getProductsForCarousel
+  productController.getProductsForCarousel,
 );
 
 router.post(
   "/add-to-carousel",
-  [
-    middleware.authenticateToken,
-    adminMiddleware.checkAdmin,
-    product.checkProduct,
-  ],
-  productController.addProductsToCarousel
+  [adminMiddleware.checkAdmin, product.checkProduct],
+  productController.addProductsToCarousel,
 );
 // hide or remove from carousel
 router.post(
   "/remove-from-carousel",
-  [
-    middleware.authenticateToken,
-    adminMiddleware.checkAdmin,
-    product.checkProduct,
-  ],
-  productController.deleteProductsFromCarouselOrHide
+  [adminMiddleware.checkAdmin, product.checkProduct],
+  productController.deleteProductsFromCarouselOrHide,
 );
 
 router.get(
   "/search",
   [middleware.authenticateToken],
-  productController.searchProducts
+  productController.searchProducts,
 );
 router.post(
   "/get-similar-products",
   [middleware.authenticateToken],
-  productController.getSimilarProducts
+  productController.getSimilarProducts,
 );
 router.get(
   "/get-all-trending-products",
   [middleware.authenticateToken],
-  productController.getAllTrendingProducts
+  productController.getAllTrendingProducts,
 );
 
 module.exports = router;

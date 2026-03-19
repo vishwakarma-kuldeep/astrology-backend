@@ -13,7 +13,7 @@ const validateEmail = (req, res, next) => {
     return res.status(400).json({ message: "Email is invalid" });
   }
   next();
-}
+};
 
 const mobileNumberValidator = (mobileNumber) => {
   const phoneRegex = /^[0-9]{10}$/;
@@ -29,7 +29,6 @@ const signup = (req, res, next) => {
   }
   next();
 };
-
 
 const nameValidator = (name) => {
   const nameRegex = /^[a-zA-Z ]{2,30}$/;
@@ -68,7 +67,6 @@ const validateDateOfBirth = (req, res, next) => {
   next();
 };
 
-
 const otpValidator = (otp) => {
   const otpRegex = /^[0-9]{6}$/;
   return otpRegex.test(otp);
@@ -76,7 +74,7 @@ const otpValidator = (otp) => {
 const authenticate = (req, res, next) => {
   const { email, otp } = req.body;
   if (!email) {
-    return res.status(400).json({ message: "Mobile number is required" });
+    return res.status(400).json({ message: "Emailis required" });
   }
   // if (!mobileNumberValidator(mobileNumber)) {
   //   return res.status(400).json({ message: "Mobile number is invalid" });
@@ -87,10 +85,9 @@ const authenticate = (req, res, next) => {
   if (!otpValidator(otp)) {
     return res.status(400).json({ message: "OTP is invalid" });
   }
- 
+
   next();
 };
-
 
 module.exports = {
   emailVaidator,
@@ -99,5 +96,6 @@ module.exports = {
   signup,
   authenticate,
   validateEmail,
-  validateName,validateDateOfBirth
+  validateName,
+  validateDateOfBirth,
 };

@@ -1,13 +1,14 @@
-const Plan = require ('../controllers/plans');
-const { checkPlan, checkValidPlanId } = require('../middlewares/plan');
-const { authenticateToken } = require('../middlewares/auth');
-const { checkAdmin } = require('../middlewares/adminmiddleware');
-const router = require('express').Router();
+const Plan = require("../controllers/plans");
+const { checkPlan, checkValidPlanId } = require("../middlewares/plan");
+const { authenticateToken } = require("../middlewares/auth");
+const { checkAdmin } = require("../middlewares/adminmiddleware");
+const router = require("express").Router();
 
-router.post('/create',[authenticateToken,checkAdmin,checkPlan],Plan.createPlan);
-router.post('/update/:id',[authenticateToken,checkAdmin,checkValidPlanId],Plan.updatePlan);
-router.post('/delete/:id',[authenticateToken,checkAdmin,checkValidPlanId],Plan.deletePlan);
-router.get('/get/:id',[authenticateToken,checkValidPlanId],Plan.planById);
-router.get('/get',[authenticateToken],Plan.getPlans);
+router.use(authenticateToken);
+router.post("/create", [checkAdmin, checkPlan], Plan.createPlan);
+router.post("/update/:id", [checkAdmin, checkValidPlanId], Plan.updatePlan);
+router.post("/delete/:id", [checkAdmin, checkValidPlanId], Plan.deletePlan);
+router.get("/get/:id", [checkValidPlanId], Plan.planById);
+router.get("/get", [Plan.getPlans]);
 
 module.exports = router;

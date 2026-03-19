@@ -124,25 +124,8 @@ var rateLimit = require("express-rate-limit");
 // DB
 const dbConnection = require("./lib/db");
 
-// Routes
-const userRouter = require("./routes/user");
-const adminRouter = require("./routes/admin");
-const categoryRouter = require("./routes/category");
-const productRouter = require("./routes/product");
-const paymentRouter = require("./routes/payment");
-const orderRouter = require("./routes/order");
-const cartRouter = require("./routes/cart");
-const jyotisRouter = require("./routes/jyotis");
-const appointmentRouter = require("./routes/appointment");
-const horoscopeRouter = require("./routes/horoscope");
-const cardRouter = require("./routes/card");
-const planRouter = require("./routes/plan");
-const subscriptionRouter = require("./routes/subscription");
-const galleryRouter = require("./routes/gallery");
-const feedback = require("./routes/feedback");
-const kundaliRouter = require("./routes/kundali");
-
 const auth = require("./middlewares/auth");
+const rootRoute = require("./routes");
 
 dbConnection();
 
@@ -179,22 +162,7 @@ app.use(
 
 // ================= ROUTES =================
 
-app.use("/api/user", userRouter);
-app.use("/api/admin", adminRouter);
-app.use("/api/category", categoryRouter);
-app.use("/api/products", productRouter);
-app.use("/api/payment", paymentRouter);
-app.use("/api/order", orderRouter);
-app.use("/api/cart", cartRouter);
-app.use("/api/jyotis", jyotisRouter);
-app.use("/api/appointment", appointmentRouter);
-app.use("/api/horoscope", horoscopeRouter);
-app.use("/api/card", cardRouter);
-app.use("/api/plan", planRouter);
-app.use("/api/subscription", subscriptionRouter);
-app.use("/api/gallery", galleryRouter);
-app.use("/api/cms", feedback);
-app.use("/api/kundali", kundaliRouter);
+app.use("/api", rootRoute);
 
 // 🔐 Auth check
 app.get("/api/check-auth", auth.authenticateToken, (req, res) => {
